@@ -24,6 +24,11 @@
 
 #include "config.h"
 #include <string.h>
+#if HAVE_STDINT_H
+# include <stdint.h>
+#else
+# include <libretro.h>
+#endif
 
 #include "antic.h"
 #include "atari.h"
