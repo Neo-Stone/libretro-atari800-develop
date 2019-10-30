@@ -951,7 +951,7 @@ int ANTIC_Initialise(int *argc, char *argv[])
 	for (i = j = 1; i < *argc; i++) {
 		int i_a = (i + 1 < *argc);		/* is argument available? */
 		int a_m = FALSE;			/* error, argument missing! */
-		
+
 		if (strcmp(argv[i], "-artif") == 0) {
 			if (i_a) {
 				ANTIC_artif_mode = Util_sscandec(argv[++i]);
@@ -1634,7 +1634,7 @@ static void prepare_an_antic_2(int nchars, const UBYTE *antic_memptr, const ULON
 static void draw_antic_2_gtia9(int nchars, const UBYTE *antic_memptr, UWORD *ptr, const ULONG *t_pm_scanline_ptr)
 {
 	INIT_ANTIC_2
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_2(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia9(t_pm_scanline_ptr);
 		return;
@@ -1685,7 +1685,7 @@ static void draw_antic_2_gtia10(int nchars, const UBYTE *antic_memptr, UWORD *pt
 	UWORD lookup_gtia10[16];
 #endif
 	INIT_ANTIC_2
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_2(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia10(t_pm_scanline_ptr);
 		return;
@@ -1746,7 +1746,7 @@ static void draw_antic_2_gtia10(int nchars, const UBYTE *antic_memptr, UWORD *pt
 static void draw_antic_2_gtia11(int nchars, const UBYTE *antic_memptr, UWORD *ptr, const ULONG *t_pm_scanline_ptr)
 {
 	INIT_ANTIC_2
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_2(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia11(t_pm_scanline_ptr);
 		return;
@@ -2257,7 +2257,7 @@ static void prepare_an_antic_e(int nchars, const UBYTE *antic_memptr, const ULON
 static void draw_antic_e_gtia9(int nchars, const UBYTE *antic_memptr, UWORD *ptr, const ULONG *t_pm_scanline_ptr)
 {
 	ULONG lookup[16];
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_e(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia9(t_pm_scanline_ptr);
 		return;
@@ -2402,7 +2402,7 @@ static void prepare_an_antic_f(int nchars, const UBYTE *antic_memptr, const ULON
 
 static void draw_antic_f_gtia9(int nchars, const UBYTE *antic_memptr, UWORD *ptr, const ULONG *t_pm_scanline_ptr)
 {
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_f(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia9(t_pm_scanline_ptr);
 		return;
@@ -2447,7 +2447,7 @@ static void draw_antic_f_gtia10(int nchars, const UBYTE *antic_memptr, UWORD *pt
 #else
 	UWORD lookup_gtia10[16];
 #endif
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_f(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia10(t_pm_scanline_ptr);
 		return;
@@ -2503,7 +2503,7 @@ static void draw_antic_f_gtia10(int nchars, const UBYTE *antic_memptr, UWORD *pt
 
 static void draw_antic_f_gtia11(int nchars, const UBYTE *antic_memptr, UWORD *ptr, const ULONG *t_pm_scanline_ptr)
 {
-	if ((unsigned long) ptr & 2) { /* HSCROL & 1 */
+	if ((uintptr_t) ptr & 2) { /* HSCROL & 1 */
 		prepare_an_antic_f(nchars, antic_memptr, t_pm_scanline_ptr);
 		draw_an_gtia11(t_pm_scanline_ptr);
 		return;
@@ -3200,7 +3200,7 @@ position, when a change was made to a display register during drawing */
 void ANTIC_UpdateScanline(void)
 {
 	int actual_xpos = ANTIC_cpu2antic_ptr[ANTIC_xpos];
-        int oldpos = ANTIC_cur_screen_pos;
+  int oldpos = ANTIC_cur_screen_pos;
 	ANTIC_cur_screen_pos = actual_xpos * 2 - 37;
 	draw_partial_scanline(oldpos, ANTIC_cur_screen_pos);
 }
